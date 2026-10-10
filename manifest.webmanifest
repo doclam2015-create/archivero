@@ -1,0 +1,26 @@
+{
+  "name": "Archivero",
+  "short_name": "Archivero",
+  "description": "Gestor de archivos, lector y editor de PDF, escáner y reproductor. Gratis y sin conexión.",
+  "lang": "es-CL",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#F4F2EE",
+  "theme_color": "#0B7A75",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

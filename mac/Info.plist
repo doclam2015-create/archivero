@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleName</key><string>Archivero</string>
+  <key>CFBundleDisplayName</key><string>Archivero</string>
+  <key>CFBundleIdentifier</key><string>cl.doclam.archivero</string>
+  <key>CFBundleExecutable</key><string>Archivero</string>
+  <key>CFBundleIconFile</key><string>AppIcon</string>
+  <key>CFBundlePackageType</key><string>APPL</string>
+  <key>CFBundleShortVersionString</key><string>1.0</string>
+  <key>CFBundleVersion</key><string>1</string>
+  <key>CFBundleDevelopmentRegion</key><string>es</string>
+  <key>LSMinimumSystemVersion</key><string>13.0</string>
+  <key>LSApplicationCategoryType</key><string>public.app-category.productivity</string>
+  <key>NSHighResolutionCapable</key><true/>
+  <key>NSPrincipalClass</key><string>NSApplication</string>
+  <key>NSCameraUsageDescription</key><string>Archivero usa la cámara para escanear documentos.</string>
+  <key>NSLocalNetworkUsageDescription</key><string>Archivero comparte archivos con tus otros equipos en la misma red Wi‑Fi cuando usas Transferir archivos.</string>
+  <key>NSMicrophoneUsageDescription</key><string>Archivero usa el micrófono para grabar notas de voz.</string>
+  <key>CFBundleDocumentTypes</key>
+  <array><dict>
+    <key>CFBundleTypeName</key><string>Documento</string>
+    <key>CFBundleTypeRole</key><string>Viewer</string>
+    <key>LSHandlerRank</key><string>Alternate</string>
+    <key>LSItemContentTypes</key><array><string>public.item</string></array>
+  </dict></array>
+  <key>NSHumanReadableCopyright</key><string>Dr. Marcelo Lam</string>
+</dict>
+</plist>
