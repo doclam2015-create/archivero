@@ -63,7 +63,7 @@ function commonActs(path, at){
       {t:'Etiquetas…', i:'tag', fn:function(){ App.metaMap().then(function(){ App.tagDialog([p]); }); }},
       {t:'Información', i:'info', fn:function(){ VFS.stat(p).then(function(n){ App.metaMap().then(function(){ App.info(n); }); }); }},
       VFS.native ? {t:'Abrir con otra app', i:'finder', fn:function(){ VFS.bridge({op:'openExternal', path:p}); }} : null,
-      VFS.native ? {t:'Mostrar en Finder', i:'finder', fn:function(){ VFS.bridge({op:'reveal', path:p}); }} : null,
+      VFS.native ? {t:VFS.ios ? 'Mostrar en Archivos' : 'Mostrar en Finder', i:'finder', fn:function(){ VFS.bridge({op:'reveal', path:p}); }} : null,
       '-',
       {t:'Eliminar', i:'trash', danger:true, fn:function(){ UI.confirm('¿Eliminar «' + VFS.base(p) + '»?', '', 'Eliminar', true).then(function(ok){ if(ok) VFS.remove(p).then(function(){ UI.toast('Eliminado'); close(); }); }); }}
     ], e.currentTarget, VFS.base(p));
@@ -808,7 +808,7 @@ function unknown(path){
     e.innerHTML = UI.fileIcon(path).replace('class="ft"', 'class="ft" style="margin:0 auto;width:96px;height:120px;font-size:16px"') + '<h3>' + esc(n.name) + '</h3><div>' + esc(UI.size(n.size)) + ' · ' + esc(UI.date(n.mtime, true)) + '</div><div style="margin-top:8px">No hay vista previa para este tipo de archivo.</div>';
     var a = h('div', {class:'actions'});
     a.appendChild(h('button', {class:'btn', html:icon('share') + (VFS.native ? 'Compartir' : 'Abrir en otra app'), onclick:function(ev){ App.sharePaths([path], ev.currentTarget); }}));
-    if(VFS.native) a.appendChild(h('button', {class:'btn sec', html:icon('finder') + 'Abrir con app del Mac', onclick:function(){ VFS.bridge({op:'openExternal', path:path}); }}));
+    if(VFS.native) a.appendChild(h('button', {class:'btn sec', html:icon('finder') + (VFS.ios ? 'Abrir en otra app' : 'Abrir con app del Mac'), onclick:function(){ VFS.bridge({op:'openExternal', path:path}); }}));
     a.appendChild(h('button', {class:'btn sec', html:icon('text') + 'Ver como texto', onclick:function(){ close(); text(path, {}); }}));
     e.appendChild(a);
     v.body.appendChild(e);

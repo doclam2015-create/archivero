@@ -454,7 +454,7 @@ function itemMenu(n, at){
     isDir ? {t:'Color de carpeta…', i:'folder', fn:function(){ colorDialog(n.path); }} : null,
     isDir ? {t:m.locked ? 'Quitar protección' : 'Proteger con código', i:'lock', fn:function(){ toggleLock(n.path, m.locked); }} : null,
     {t:'Información', i:'info', fn:function(){ info(n); }},
-    VFS.native ? {t:'Mostrar en Finder', i:'finder', fn:function(){ VFS.bridge({op:'reveal', path:n.path}); }} : null,
+    VFS.native ? {t:VFS.ios ? 'Mostrar en Archivos' : 'Mostrar en Finder', i:'finder', fn:function(){ VFS.bridge({op:'reveal', path:n.path}); }} : null,
     '-',
     {t:'Eliminar', i:'trash', danger:true, fn:function(){ removePaths([n.path]); }}
   ];
@@ -507,7 +507,7 @@ function copyPaths(ps, dir){
 }
 function removePaths(ps){
   var n = ps.length;
-  var go = (S.confirmDelete || VFS.native) ? UI.confirm('¿Eliminar ' + (n > 1 ? n + ' elementos' : '«' + VFS.base(ps[0]) + '»') + '?', VFS.native ? 'Irá a la Papelera del Mac.' : 'Irá a la Papelera; podrás restaurarlo.', 'Eliminar', true) : Promise.resolve(true);
+  var go = (S.confirmDelete || VFS.native) ? UI.confirm('¿Eliminar ' + (n > 1 ? n + ' elementos' : '«' + VFS.base(ps[0]) + '»') + '?', VFS.native ? (VFS.ios ? 'Irá a la Papelera.' : 'Irá a la Papelera del Mac.') : 'Irá a la Papelera; podrás restaurarlo.', 'Eliminar', true) : Promise.resolve(true);
   go.then(function(ok){
     if(!ok) return;
     var c = Promise.resolve();
@@ -728,7 +728,7 @@ function addMenu(){
   var items = [
     {t:'Carpeta', i:'folderplus', c:'#4FA3E0', fn:newFolder},
     {t:'Importar archivos', i:'upload', c:'#0B7A75', fn:importPick},
-    !VFS.native ? {t:'Fotos y videos', i:'image', c:'#8E4EC6', fn:importMedia} : null,
+    (!VFS.native || VFS.ios) ? {t:'Fotos y videos', i:'image', c:'#8E4EC6', fn:importMedia} : null,
     {t:'Escanear documento', i:'scan', c:'#E5484D', fn:function(){ Tools.scan(dir); }},
     {t:'Nota de texto', i:'text', c:'#5B6472', fn:function(){ newNote(dir, 'txt'); }},
     {t:'Nota Markdown', i:'md', c:'#2B2D31', fn:function(){ newNote(dir, 'md'); }},
@@ -844,7 +844,7 @@ $('#bMore').onclick = function(e){
     {t:'Ordenar por…', i:'sort', fn:function(){ $('#bSort').click(); }}, '-',
     {t:'Guardar enlace aquí', i:'link', fn:function(){ Extra.saveLink(st.sec === 'files' ? st.cwd : '/'); }},
     {t:'Transferir archivos', i:'upload', fn:Extra.transfer}, {t:'Añadir conexión', i:'cloud', fn:Extra.addConnection},
-    VFS.native ? {t:'Mostrar en Finder', i:'finder', fn:function(){ VFS.bridge({op:'reveal', path:st.cwd}); }} : null, '-',
+    VFS.native ? {t:VFS.ios ? 'Mostrar en Archivos' : 'Mostrar en Finder', i:'finder', fn:function(){ VFS.bridge({op:'reveal', path:st.cwd}); }} : null, '-',
     {t:'Centro de control', i:'tools', fn:Extra.controlCenter}, {t:'Ayuda', i:'info', fn:Extra.help}], e.currentTarget, 'Opciones');
 };
 $('#bSort').onclick = function(e){

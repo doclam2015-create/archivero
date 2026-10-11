@@ -438,7 +438,7 @@ function open(path, opts){
       {t:'Compartir', i:'share', fn:function(){ saveIfDirty().then(function(){ App.sharePaths([path]); }); }},
       {t:VFS.native ? 'Exportar…' : 'Guardar en Archivos / Descargar', i:'download', fn:function(){ saveIfDirty().then(function(){ App.exportPath(path); }); }},
       {t:'Información', i:'info', fn:docInfo},
-      VFS.native ? {t:'Abrir en Vista Previa', i:'finder', fn:function(){ VFS.bridge({op:'openExternal', path:path}); }} : null
+      VFS.native ? {t:VFS.ios ? 'Abrir en otra app' : 'Abrir en Vista Previa', i:'finder', fn:function(){ VFS.bridge({op:'openExternal', path:path}); }} : null
     ], e.currentTarget, VFS.base(path));
   });
   readBar();

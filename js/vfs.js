@@ -288,7 +288,7 @@ function uniquePath(p){
 }
 
 window.VFS = {
-  native: NATIVE, TRASH: TRASH,
+  native: NATIVE, ios: NATIVE && !!window.ARCHIVERO_IOS, TRASH: TRASH,
   norm: norm, parent: parent, base: base, join: join, ext: ext, stem: stem, inside: inside, mimeOf: mimeOf,
   init: function(){ return B.init(); },
   stat: function(p){ return B.stat(p); },
