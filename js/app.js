@@ -77,6 +77,7 @@ function renderSide(){
   n.appendChild(h('div', {class:'nav-h', text:'Más'}));
   n.appendChild(navBtn('tools', 'Herramientas', icon('tools')));
   n.appendChild(navBtn('settings', 'Ajustes', icon('gear')));
+  n.appendChild(h('button', {class:'nav', title:'Ayuda', html:icon('info') + '<span class="ell">Ayuda</span>', onclick:function(){ closeSide(); help(); }}));
   var foot = h('div', {class:'row sidefoot'}, [
     h('button', {class:'tb', title:'Centro de control', html:'<svg class="i" viewBox="0 0 24 24"><circle cx="7" cy="7" r="3" fill="#E5484D" stroke="none"/><circle cx="17" cy="7" r="3" fill="#888" stroke="none"/><circle cx="7" cy="17" r="3" fill="#333" stroke="none"/><circle cx="17" cy="17" r="3" fill="#333" stroke="none"/></svg>', onclick:function(){ closeSide(); Extra.controlCenter(); }}),
     h('span', {class:'grow'}),
@@ -937,7 +938,31 @@ function start(){
   }).catch(function(e){ UI.fail(e); });
 }
 
-window.App = {S:S, save:save, applySide:applySide, newNote:newNote, pdfConvertMenu:pdfConvertMenu, applyTheme:applyTheme, st:st, go:go, cd:cd, refresh:refresh, render:render, renderSide:renderSide, M:M, metaMap:metaMap,
+/* ---------- ayuda integrada ---------- */
+function help(){
+  var T = [
+    ['folder', 'Archivos', 'Tus carpetas y documentos. Cambia entre cuadrícula y lista, ordena y filtra arriba. Mantén pulsado (o clic derecho) sobre un archivo para mover, copiar, duplicar, renombrar, comprimir en ZIP, etiquetar o enviar a la papelera. Arrastra archivos sobre Favoritos, una etiqueta o la Papelera en la barra lateral.'],
+    ['search', 'Buscar', 'La búsqueda revisa nombres, etiquetas y notas en todas las carpetas. En el Mac: ⌘F.'],
+    ['star', 'Recientes, Favoritos y etiquetas', 'Recientes muestra lo último que abriste; Favoritos lo que marcaste con estrella; cada etiqueta de color agrupa archivos de cualquier carpeta.'],
+    ['file', 'PDF', 'Lector con miniaturas, búsqueda, índice, modo noche y lectura en voz alta. Puedes anotar, firmar, rellenar formularios, corregir texto, censurar de forma segura, unir, dividir, reducir, poner o quitar contraseña y convertir a Word, Excel, PowerPoint, imagen o texto.'],
+    ['scan', 'Escáner', 'Fotografía un documento: corrige la perspectiva, aplica filtros y reconoce el texto (OCR). Se guarda en la carpeta actual.'],
+    ['video', 'Fotos, audio y video', 'Visores y reproductor en segundo plano; editor de audio (recortar, quitar silencios, normalizar); convertir y comprimir audio y video; extraer audio; eliminar objetos de fotos; convertir HEIC a JPG.'],
+    ['globe', 'Navegador', 'Navega con tu buscador preferido, guarda marcadores y usa navegación privada. En el Mac: pestañas, descargas directo a Archivero y guardar página como PDF.'],
+    ['cloud', 'Conexiones', 'En el Mac detecta iCloud Drive, Google Drive, OneDrive, Dropbox, Box y discos externos. «Añadir conexión» suma carpetas o servidores SMB, FTP, WebDAV y AFP.'],
+    ['upload', 'Transferir archivos', 'Comparte por Wi‑Fi: el otro equipo abre la dirección, escribe el código de 4 dígitos (o escanea el QR) y descarga o envía archivos.'],
+    ['tools', 'Herramientas', 'Conversores, PDF, multimedia y utilidades reunidas en un solo lugar.'],
+    ['lock', 'Privacidad (Ajustes)', 'Código de acceso, bloqueo al salir y carpetas protegidas. En Ajustes también eliges tema, barra lateral compacta y qué secciones mostrar.']
+  ];
+  var K = [['⌘O','Importar archivos'],['⇧⌘N','Nueva carpeta'],['⌘L','Descargar desde enlace'],['⌘F','Buscar'],['⌘1 … ⌘6','Mis archivos, Recientes, Favoritos, Fotos y videos, Documentos, Herramientas'],['⌘↑','Carpeta superior'],['⌥⌘R','Mostrar en Finder'],['⌘W','Cerrar documento'],['⌘,','Ajustes'],['⌘?','Esta ayuda']];
+  var html = '<div style="text-align:left;font-size:14px;line-height:1.45">' +
+    '<p class="muted" style="margin:0 0 12px">Archivero guarda, abre y edita tus archivos sin conexión: nada sale del dispositivo. Elige una sección en la barra lateral.</p>' +
+    T.map(function(t){ return '<div style="display:flex;gap:10px;margin:0 0 12px">' + icon(t[0]) + '<div><b>' + t[1] + '</b><div class="muted">' + t[2] + '</div></div></div>'; }).join('') +
+    '<b>Atajos de teclado (Mac)</b><table style="margin-top:6px;border-spacing:12px 4px">' +
+    K.map(function(k){ return '<tr><td style="white-space:nowrap"><b>' + k[0] + '</b></td><td>' + k[1] + '</td></tr>'; }).join('') + '</table></div>';
+  return UI.dialog({title:'Ayuda de Archivero', body:h('div', {html:html}), wide:true, buttons:[{t:'Cerrar', v:true, cls:'primary'}]});
+}
+
+window.App = {help:help, S:S, save:save, applySide:applySide, newNote:newNote, pdfConvertMenu:pdfConvertMenu, applyTheme:applyTheme, st:st, go:go, cd:cd, refresh:refresh, render:render, renderSide:renderSide, M:M, metaMap:metaMap,
   importFiles:importFiles, importPick:importPick, pickFolder:pickFolder, unzip:unzip, zipPaths:zipPaths, sharePaths:sharePaths, exportPath:exportPath,
   removePaths:removePaths, rename:rename, info:info, tagDialog:tagDialog, itemMenu:itemMenu, askPin:askPin, setPin:setPin, hashPin:hashPin, Thumbs:Thumbs, validName:validName, newFolder:newFolder, filesUnder:filesUnder,
   // llamado por la app de Mac al abrir archivos desde Finder

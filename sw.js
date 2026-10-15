@@ -1,4 +1,4 @@
-var CACHE='archivero-v2';
+var CACHE='archivero-v3';
 var FILES=['./','index.html','manifest.webmanifest','apple-touch-icon.png','icon-192.png','icon-512.png',
   'js/vfs.js','js/ui.js','js/app.js','js/viewers.js','js/pdf.js','js/tools.js','js/extra.js',
   'lib/jszip.min.js','lib/pdf.min.js','lib/pdf.worker.min.js','lib/pdf-lib.min.js','lib/mammoth.browser.min.js','lib/xlsx.full.min.js','lib/jspdf.umd.min.js','lib/lame.min.js','lib/pptxgen.bundle.js','lib/qrcode.js'];

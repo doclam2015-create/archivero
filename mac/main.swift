@@ -504,6 +504,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKScriptMessageHandler
         w.addItem(withTitle: "Minimizar", action: #selector(NSWindow.performMiniaturize(_:)), keyEquivalent: "m")
         w.addItem(withTitle: "Zoom", action: #selector(NSWindow.performZoom(_:)), keyEquivalent: "")
         wItem.submenu = w
+        let hItem = NSMenuItem(); bar.addItem(hItem)
+        let hm = NSMenu(title: "Ayuda")
+        hm.addItem(item("Ayuda de Archivero", "App.help()", "?"))
+        hItem.submenu = hm
+        NSApp.helpMenu = hm
         NSApp.windowsMenu = w
         NSApp.mainMenu = bar
     }
